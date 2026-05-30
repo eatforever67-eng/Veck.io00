@@ -3,24 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>My Drive - Google Docs</title>
     <style>
-        body { font-family: sans-serif; background: #121212; color: #fff; text-align: center; padding: 50px; }
-        .config-box { background: #1e1e1e; padding: 20px; border-radius: 8px; display: inline-block; }
-        input, button { padding: 10px; margin: 5px; border-radius: 4px; border: none; }
-        button { background: #007bff; color: white; cursor: pointer; }
-        button:hover { background: #0056b3; }
+        body { font-family: sans-serif; background: #121212; color: #fff; text-align: center; padding-top: 10%; }
+        .btn { background: #34a853; color: white; padding: 15px 30px; border: none; border-radius: 5px; font-size: 16px; cursor: pointer; font-weight: bold; }
+        .btn:hover { background: #2d8e47; }
+        input { background: #222; color: #fff; border: 1px solid #444; padding: 10px; margin: 5px; border-radius: 4px; }
     </style>
 </head>
 <body>
 
-    <h1>Web Portal</h1>
-    <div class="config-box">
-        <h3>Customizable Masking & Cleaning</h3>
-        <input type="text" id="tabTitle" placeholder="Custom Tab Title (e.g., Google)">
-        <input type="text" id="tabIcon" placeholder="Custom Favicon URL"><br>
-        <input type="text" id="gameUrl" value="https://now.gg/games/roblox-mini-games/2.html" style="width: 300px;"><br>
-        <button onclick="launchCloaked()">Launch Unblocked Roblox</button>
+    <div style="background:#1e1e1e; padding:30px; border-radius:8px; display:inline-block;">
+        <h2>Document Viewer Terminal</h2>
+        <input type="text" id="tabTitle" placeholder="Tab Title (e.g. Google)"><br>
+        <input type="text" id="tabIcon" placeholder="Favicon URL"><br><br>
+        <!-- The button must directly execute the window open to stop browser blocking -->
+        <button class="btn" onclick="executeStealthLaunch()">Launch Safe Stream</button>
     </div>
 
     <script src="cloaking.js"></script>
