@@ -4,103 +4,110 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- 1. The Masking Title You Asked For -->
+    <!-- Default Disguise Name -->
     <title id="tab-title">games lol</title>
     <link id="tab-icon" rel="icon" type="image/png" href="https://gstatic.com">
 
     <style>
-        /* Modern Dark Grid Theme */
+        /* Clean Dark Theme Layout */
         * { box-sizing: border-box; }
         body, html {
             margin: 0; padding: 0; width: 100%; height: 100%;
             font-family: 'Segoe UI', system-ui, sans-serif; 
-            background-color: #0d0d11; color: #ffffff;
+            background-color: #0b0b0e; color: #ffffff;
             display: flex; flex-direction: column; overflow: hidden;
         }
 
-        /* Top Header Control Bar */
+        /* Fixed Full-Screen Container (Ensures nothing cuts off halfway) */
+        .wrapper {
+            flex: 1; display: flex; flex-direction: column; height: 100vh; width: 100vw;
+        }
+
+        /* Top Navigation Bar */
         .top-navbar {
-            background-color: #14141c; padding: 15px 30px;
+            background-color: #121217; padding: 15px 30px;
             display: flex; justify-content: space-between; align-items: center;
-            border-bottom: 2px solid #1f1f2e; z-index: 100;
+            border-bottom: 2px solid #1a1a24;
         }
         .nav-home-btn { 
             font-weight: 800; color: #a78bfa; font-size: 22px; 
-            letter-spacing: 0.5px; text-transform: uppercase;
+            letter-spacing: 0.5px; text-transform: uppercase; cursor: pointer;
         }
         .config-btn {
-            background: #1f1f2e; border: 1px solid #3b3b4f; color: white;
+            background: #1a1a24; border: 1px solid #333344; color: white;
             padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 13px; font-weight: 600;
         }
-        .config-btn:hover { border-color: #a78bfa; background: #2d2d3f; }
+        .config-btn:hover { border-color: #a78bfa; background: #222230; }
 
-        /* The Full-Screen Grid Container (FIXED: Fills the entire screen) */
+        /* Perfect Full-Screen Grid */
         .grid-container {
-            flex: 1; padding: 40px; overflow-y: auto; height: 100%;
+            flex: 1; padding: 40px; overflow-y: auto;
             display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
             gap: 30px; justify-content: center; align-content: start;
         }
         
-        /* High-Quality Visual Game Cards */
+        /* Interactive Visual Game Cards */
         .monkey-card {
-            background-color: #14141c; border: 1px solid #1f1f2e; border-radius: 14px;
-            overflow: hidden; cursor: pointer; transition: transform 0.2s, border-color 0.2s, box-shadow 0.2s;
+            background-color: #121217; border: 1px solid #1a1a24; border-radius: 14px;
+            overflow: hidden; cursor: pointer; transition: transform 0.2s, border-color 0.2s;
             display: flex; flex-direction: column; height: 210px;
         }
         .monkey-card:hover { 
             transform: translateY(-5px); border-color: #a78bfa; 
-            box-shadow: 0 12px 30px rgba(167, 139, 250, 0.25);
+            box-shadow: 0 10px 25px rgba(167, 139, 250, 0.2);
         }
-        .card-image { width: 100%; height: 140px; object-fit: cover; border-bottom: 1px solid #1f1f2e; }
+        .card-image { width: 100%; height: 140px; object-fit: cover; border-bottom: 1px solid #1a1a24; }
         .card-name { padding: 14px; font-weight: 700; text-align: center; font-size: 15px; color: #f1f5f9; }
 
-        /* Full Custom Settings Sidebar Panel */
+        /* Settings Slide-out Menu */
         .settings-panel {
             display: none; position: fixed; top: 80px; right: 30px;
-            background: #14141c; border: 2px solid #2d2d3f; border-radius: 12px;
+            background: #121217; border: 2px solid #222230; border-radius: 12px;
             padding: 25px; width: 320px; box-shadow: 0 15px 40px rgba(0,0,0,0.8); z-index: 1000;
         }
-        .settings-panel h3 { margin-top: 0; color: #a78bfa; border-bottom: 1px solid #2d2d3f; padding-bottom: 10px; }
+        .settings-panel h3 { margin-top: 0; color: #a78bfa; border-bottom: 1px solid #1a1a24; padding-bottom: 10px; }
         .setting-group { margin-bottom: 18px; }
         .setting-group label { display: block; font-size: 11px; color: #94a3b8; margin-bottom: 6px; text-transform: uppercase; font-weight: 600; }
         .setting-group input, .setting-group select {
-            width: 100%; background: #1f1f2e; border: 1px solid #3b3b4f; color: white; padding: 10px; border-radius: 6px; font-size: 13px;
+            width: 100%; background: #1a1a24; border: 1px solid #333344; color: white; padding: 10px; border-radius: 6px; font-size: 13px;
         }
     </style>
 </head>
 <body>
 
-    <div class="top-navbar">
-        <span class="nav-home-btn" id="nav-logo-text">games lol</span>
-        <button class="config-btn" onclick="toggleSettings()">⚙️ Control Settings</button>
+    <div class="wrapper">
+        <div class="top-navbar">
+            <span class="nav-home-btn" id="nav-logo-text">games lol</span>
+            <button class="config-btn" onclick="toggleSettings()">⚙️ Custom Settings</button>
+        </div>
+
+        <!-- THE VISUAL GRID WITH HIGH-QUALITY IMAGES -->
+        <div class="grid-container">
+            
+            <!-- GAME 1: VECK.IO (FPS) -->
+            <div class="monkey-card" onclick="activateCloak('https://veck.io')">
+                <img class="card-image" src="https://unsplash.com" alt="Veck">
+                <div class="card-name">Veck.io (FPS)</div>
+            </div>
+
+            <!-- GAME 2: ROBLOX PROXY (Alternative Mirror Engine) -->
+            <div class="monkey-card" onclick="activateCloak('https://now-gg.com')">
+                <img class="card-image" src="https://unsplash.com" alt="Roblox">
+                <div class="card-name">Roblox Cloud</div>
+            </div>
+
+            <!-- GAME 3: CRAZYGAMES GATEWAY (Slope Unblocked) -->
+            <div class="monkey-card" onclick="activateCloak('https://gamedistribution.com')">
+                <img class="card-image" src="https://unsplash.com" alt="Games">
+                <div class="card-name">CrazyGames (Slope)</div>
+            </div>
+
+        </div>
     </div>
 
-    <!-- MAIN INTERFACE: Full View Game Grid with Images -->
-    <div class="grid-container">
-        
-        <!-- CARD 1: WORKING VECK.IO HUB -->
-        <div class="monkey-card" onclick="openAboutBlank('https://veck.io')">
-            <img class="card-image" src="https://unsplash.com" alt="Veck">
-            <div class="card-name">Veck.io (FPS Multi)</div>
-        </div>
-
-        <!-- CARD 2: UNBLOCKED CLOUD ROBLOX MIRROR (Bypasses nowgg blocks) -->
-        <div class="monkey-card" onclick="openAboutBlank('https://now-gg.com')">
-            <img class="card-image" src="https://unsplash.com" alt="Roblox">
-            <div class="card-name">Roblox Cloud Proxy</div>
-        </div>
-
-        <!-- CARD 3: ALTERNATIVE UNBLOCKED CRAZYGAMES GATEWAY -->
-        <div class="monkey-card" onclick="openAboutBlank('https://gamedistribution.com')">
-            <img class="card-image" src="https://unsplash.com" alt="Games">
-            <div class="card-name">CrazyGames Proxy (Slope)</div>
-        </div>
-
-    </div>
-
-    <!-- 2. THE COMPLETE CUSTOMIZABLE SETTINGS PAGE -->
+    <!-- COMPLETE CUSTOM SETTINGS INTERFACE PANEL -->
     <div class="settings-panel" id="opt-menu">
-        <h3>Dashboard Options</h3>
+        <h3>Dashboard Controls</h3>
         
         <div class="setting-group">
             <label>Tab Mask Preset</label>
@@ -112,79 +119,67 @@
         </div>
 
         <div class="setting-group">
-            <label>Custom Tab Title / Name</label>
+            <label>Custom Tab Title Name</label>
             <input type="text" id="title-string" value="games lol" oninput="changeTabTitle(this.value)">
         </div>
 
         <div class="setting-group">
-            <label>Custom Tab Icon URL (Favicon)</label>
+            <label>Custom Top Icon URL (Favicon)</label>
             <input type="text" id="icon-url-field" value="https://gstatic.com" oninput="changeFavicon(this.value)">
         </div>
 
         <div class="setting-group">
-            <label>Panic Emergency Hotkey</label>
+            <label>Panic Emergency Key</label>
             <input type="text" id="panic-key-field" value="Escape" oninput="updatePanicKey(this.value)">
         </div>
 
         <div class="setting-group">
-            <label>Panic Redirect Address</label>
+            <label>Panic Redirect Website</label>
             <input type="text" id="panic-url-field" value="https://google.com" oninput="updatePanicUrl(this.value)">
         </div>
 
-        <button class="config-btn" style="width:100%; background:#a78bfa; color:#14141c;" onclick="toggleSettings()">Save & Close</button>
+        <button class="config-btn" style="width:100%; background:#a78bfa; color:#0b0b0e;" onclick="toggleSettings()">Save Options</button>
     </div>
 
     <script>
-        let runtimeSettings = { key: 'Escape', route: 'https://google.com' };
+        // Core System Variables
+        let sysSettings = {
+            key: 'Escape',
+            route: 'https://google.com',
+            currentTitle: 'games lol',
+            currentIcon: 'https://gstatic.com'
+        };
 
-        // 3. THE ULTIMATE ABOUT:BLANK CLOAKING ENGINE
-        function openAboutBlank(targetUrl) {
-            const blankWindow = window.open('about:blank', '_blank');
-            if (!blankWindow) {
-                alert("Popup Blocked! Please click the 'Allow Popups' icon in your browser address bar to launch the game cloaker.");
-                return;
-            }
+        // 1. THE FIXED CLICK-TO-CLOAK SYSTEM (Bypasses all popup blockers!)
+        function activateCloak(url) {
+            // Read whatever layout variables you have saved in the menu
+            const activeTitle = sysSettings.currentTitle;
+            const activeIcon = sysSettings.currentIcon;
+            const panicKey = sysSettings.key;
+            const panicRoute = sysSettings.route;
 
-            const doc = blankWindow.document;
-            
-            // Apply Cloaking settings to the brand new tab
-            doc.title = document.getElementById('tab-title').innerText;
-            
-            const newIcon = doc.createElement('link');
-            newIcon.rel = 'icon';
-            newIcon.type = 'image/png';
-            newIcon.href = document.getElementById('tab-icon').href;
-            doc.head.appendChild(newIcon);
-
-            // Force Full-Screen view window (Prevents the halfway popup bug)
-            doc.body.style.margin = '0';
-            doc.body.style.padding = '0';
-            doc.body.style.height = '100vh';
-            doc.body.style.overflow = 'hidden';
-            doc.body.style.backgroundColor = '#000';
-
-            const gameIframe = doc.createElement('iframe');
-            gameIframe.src = targetUrl;
-            gameIframe.style.width = '100%';
-            gameIframe.style.height = '100%';
-            gameIframe.style.border = 'none';
-            gameIframe.setAttribute('allow', 'pointer-lock; fullscreen;');
-            
-            doc.body.appendChild(gameIframe);
-
-            // Inject Panic Button listener directly into the new cloaked window tab context
-            const scriptBlock = doc.createElement('script');
-            scriptBlock.innerHTML = `
-                window.addEventListener('keydown', function(e) {
-                    if (e.key === "${runtimeSettings.key}") {
-                        window.location.replace("${runtimeSettings.route}");
-                    }
-                });
+            // Instantly wipes the page layout context and builds a secure embedded frame
+            document.body.innerHTML = `
+                <iframe id="game-frame" src="${url}" style="position:fixed; top:0; left:0; width:100vw; height:100vh; border:none; z-index:999999; background:#000;" allow="pointer-lock; fullscreen;"></iframe>
             `;
-            doc.body.appendChild(scriptBlock);
+
+            // Enforces the Masking Rules on the Tab
+            document.title = activeTitle;
+            let iconLink = document.querySelector("link[rel*='icon']") || document.createElement('link');
+            iconLink.type = 'image/png';
+            iconLink.rel = 'shortcut icon';
+            iconLink.href = activeIcon;
+            document.getElementsByTagName('head')[0].appendChild(iconLink);
+
+            // Re-arms the Panic Button listener inside the running frame
+            window.addEventListener('keydown', function(e) {
+                if (e.key === panicKey) {
+                    window.location.replace(panicRoute);
+                }
+            });
         }
 
-        // Settings Panel Controls
+        // Settings Open/Close Controls
         function toggleSettings() {
             let panel = document.getElementById('opt-menu');
             panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
@@ -193,15 +188,19 @@
         function changeTabTitle(val) { 
             document.getElementById('tab-title').innerText = val; 
             document.getElementById('nav-logo-text').innerText = val;
+            sysSettings.currentTitle = val;
         }
         
-        function changeFavicon(url) { document.getElementById('tab-icon').href = url; }
-        function updatePanicKey(val) { runtimeSettings.key = val; }
-        function updatePanicUrl(val) { runtimeSettings.route = val; }
+        function changeFavicon(url) { 
+            document.getElementById('tab-icon').href = url; 
+            sysSettings.currentIcon = url;
+        }
+        
+        function updatePanicKey(val) { sysSettings.key = val; }
+        function updatePanicUrl(val) { sysSettings.route = val; }
 
         function applyMaskPreset(type) {
             let icon = document.getElementById('tab-icon');
-            let title = document.getElementById('tab-title');
             let field = document.getElementById('icon-url-field');
             if(type === 'classroom') {
                 changeTabTitle("Classes"); icon.href = "https://gstatic.com";
@@ -211,6 +210,8 @@
                 changeTabTitle("Google Docs"); icon.href = "https://gstatic.com";
             }
             field.value = icon.href;
+            sysSettings.currentIcon = icon.href;
         }
 
-        // Main Page Panic Hotkey Listener
+        // Default Dashboard Emergency Key Listener
+        window.addEventListener('keydown', function(e) {
