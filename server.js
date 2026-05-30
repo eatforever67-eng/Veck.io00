@@ -17,4 +17,14 @@ app.use('/uv/', express.static(uvPath));
 // Handle proxy rewrite registration rules
 app.get('/launch', (req, res) => {
     // Target the specific unblocked web endpoint for Roblox
-    const targetUrl = "https://now.gg
+    const targetUrl = "https://now.gg"; 
+    
+    // Encodes the destination string into the proxy registry format
+    const encodedTarget = Buffer.from(targetUrl).toString('base64');
+    res.redirect(`/uv/service/${encodedTarget}`);
+});
+
+server.listen(PORT, () => {
+    console.log(`Proxy server actively running on port ${PORT}`);
+});
+
