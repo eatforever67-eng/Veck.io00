@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <!-- Initial Default Masking Configuration -->
+    <!-- Tab Cloaking Elements -->
     <title id="tab-title">Classes</title>
     <link id="tab-icon" rel="icon" type="image/png" href="https://gstatic.com">
 
@@ -15,161 +15,165 @@
             font-family: 'Segoe UI', system-ui, sans-serif; background-color: #121212; color: white;
             overflow: hidden; display: flex; flex-direction: column;
         }
-        
-        /* Dashboard Control Bar */
-        .navbar {
-            background-color: #1e1e1e; padding: 8px 16px;
-            display: flex; gap: 12px; align-items: center; border-bottom: 2px solid #2d2d2d;
-            z-index: 100;
-        }
-        .logo { font-weight: bold; color: #4CAF50; font-size: 14px; margin-right: 10px; }
-        .nav-btn {
-            background-color: #2a2a2a; color: #e0e0e0; border: 1px solid #3d3d3d;
-            padding: 6px 12px; border-radius: 4px; cursor: pointer;
-            font-size: 13px; font-weight: 500; transition: all 0.2s;
-        }
-        .nav-btn:hover { background-color: #3a3a3a; border-color: #4CAF50; }
-        .nav-btn.active { background-color: #4CAF50; color: white; border-color: #4CAF50; }
-        .settings-btn { margin-left: auto; background-color: #333; }
 
-        /* Interface Wrapper */
-        .main-viewport { flex: 1; position: relative; width: 100%; height: 100%; background: #000; }
+        /* Top Stealth Bar */
+        .top-bar {
+            background-color: #1e1e1e; padding: 10px 20px;
+            display: flex; justify-content: space-between; align-items: center;
+            border-bottom: 2px solid #2d2d2d; z-index: 100;
+        }
+        .brand { font-weight: bold; color: #4CAF50; cursor: pointer; }
+        .controls { display: flex; gap: 10px; }
+        .control-btn {
+            background-color: #2a2a2a; color: white; border: 1px solid #444;
+            padding: 6px 12px; border-radius: 4px; cursor: pointer; font-size: 13px;
+        }
+        .control-btn:hover { background-color: #333; border-color: #4CAF50; }
+
+        /* Core Layout States */
+        .view-section { display: none; flex: 1; width: 100%; height: 100%; overflow: auto; }
+        .view-section.active { display: flex; }
+
+        /* The Game Grid Section */
+        #grid-view {
+            padding: 30px; display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 25px; align-content: start;
+        }
+        
+        /* Game Selection Cards */
+        .game-card {
+            background-color: #1e1e1e; border: 2px solid #2d2d2d; border-radius: 8px;
+            overflow: hidden; cursor: pointer; transition: transform 0.2s, border-color 0.2s;
+            display: flex; flex-direction: column;
+        }
+        .game-card:hover { transform: translateY(-5px); border-color: #4CAF50; }
+        .game-thumb { width: 100%; height: 130px; background-color: #2b2b2b; object-fit: cover; }
+        .game-title { padding: 12px; font-weight: 600; text-align: center; font-size: 14px; }
+
+        /* Frame Viewport Section */
+        #frame-view { background: #000; overflow: hidden; }
         iframe { width: 100%; height: 100%; border: none; display: block; }
 
-        /* Local Modular Settings Panel Overlay */
-        .settings-overlay {
-            display: none; position: absolute; top: 55px; right: 20px;
-            background-color: #1e1e1e; border: 2px solid #333; border-radius: 8px;
-            padding: 20px; width: 320px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); z-index: 200;
+        /* Custom Options Window Modals */
+        .settings-panel {
+            display: none; position: absolute; top: 60px; right: 20px;
+            background: #1e1e1e; border: 2px solid #333; border-radius: 8px;
+            padding: 20px; width: 300px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); z-index: 200;
         }
-        .settings-overlay h3 { margin-top: 0; border-bottom: 1px solid #333; padding-bottom: 8px; color: #4CAF50; }
-        .setting-group { margin-bottom: 14px; }
-        .setting-group label { display: block; font-size: 12px; color: #aaa; margin-bottom: 4px; }
-        .setting-group input, .setting-group select {
-            width: 100%; background: #2b2b2b; border: 1px solid #444; color: white;
-            padding: 6px; border-radius: 4px; font-size: 13px;
-        }
-        .close-settings {
-            width: 100%; background: #4CAF50; color: white; border: none;
-            padding: 8px; border-radius: 4px; cursor: pointer; font-weight: bold; margin-top: 10px;
+        .setting-item { margin-bottom: 12px; }
+        .setting-item label { display: block; font-size: 12px; color: #aaa; margin-bottom: 4px; }
+        .setting-item input, .setting-item select {
+            width: 100%; background: #2b2b2b; border: 1px solid #444; color: white; padding: 6px; border-radius: 4px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Tab Selection Menu -->
-    <div class="navbar">
-        <span class="logo" id="nav-brand-text">Portal</span>
-        <button class="nav-btn active" onclick="loadFrame('https://precisionclient.vercel.app', this)">Precision Client (MC)</button>
-        <button class="nav-btn" onclick="loadFrame('https://veck.io', this)">Veck.io</button>
-        <button class="nav-btn" onclick="loadFrame('https://frg.tech', this)">Slope (Proxy)</button>
-        <button class="settings-btn nav-btn" onclick="toggleSettingsForm()">⚙️ Options</button>
-    </div>
-
-    <!-- The Sandbox Frame Container -->
-    <div class="main-viewport">
-        <iframe id="game-frame" src="https://precisionclient.vercel.app" allow="pointer-lock; fullscreen;"></iframe>
-
-        <!-- Modal Engine Controls -->
-        <div class="settings-overlay" id="settings-panel">
-            <h3>Custom Settings</h3>
-            
-            <div class="setting-group">
-                <label>Tab Mask Mask Preset</label>
-                <select id="mask-select" onchange="applyMaskPreset(this.value)">
-                    <option value="classroom">Google Classroom</option>
-                    <option value="drive">Google Drive</option>
-                    <option value="docs">Google Docs</option>
-                </select>
-            </div>
-
-            <div class="setting-group">
-                <label>Custom Tab Title</label>
-                <input type="text" id="custom-title-input" value="Classes" oninput="updateTabTitle(this.value)">
-            </div>
-
-            <div class="setting-group">
-                <label>Panic Emergency Hotkey</label>
-                <select id="panic-key-select" onchange="updatePanicKey(this.value)">
-                    <option value="Escape">Escape Key</option>
-                    <option value="`">Backtick Key (`)</option>
-                    <option value="q">"Q" Key</option>
-                </select>
-            </div>
-
-            <div class="setting-group">
-                <label>Panic Redirect Destination URL</label>
-                <input type="text" id="panic-url-input" value="https://classroom.google.com" oninput="updatePanicUrl(this.value)">
-            </div>
-
-            <button class="close-settings" onclick="toggleSettingsForm()">Save & Exit</button>
+    <!-- Header Navigation System -->
+    <div class="top-bar">
+        <span class="brand" onclick="showGridView()">🏠 Dashboard</span>
+        <div class="controls">
+            <button class="control-btn" onclick="toggleSettingsMenu()">⚙️ Settings</button>
         </div>
     </div>
 
+    <!-- MAIN VIEW 1: Visual Game Grid Panel -->
+    <div id="grid-view" class="view-section active">
+        
+        <!-- CARD 1: WORKING VECK.IO -->
+        <div class="game-card" onclick="launchGame('https://veck.io')">
+            <!-- Replace image src URL with any custom image thumbnail link you want -->
+            <img class="game-thumb" src="https://unsplash.com" alt="Veck">
+            <div class="game-title">Veck.io</div>
+        </div>
+
+        <!-- CARD 2: MINECRAFT SLOT -->
+        <div class="game-card" onclick="launchGame('precision-client/index.html')">
+            <img class="game-thumb" src="https://unsplash.com" alt="MC">
+            <div class="game-title">Precision Client</div>
+        </div>
+
+        <!-- CARD 3: RETRO ARCADE SLOT -->
+        <div class="game-card" onclick="launchGame('slope/index.html')">
+            <img class="game-thumb" src="https://unsplash.com" alt="Slope">
+            <div class="game-title">Slope Unblocked</div>
+        </div>
+
+    </div>
+
+    <!-- MAIN VIEW 2: Dedicated Fullscreen Game Player -->
+    <div id="frame-view" class="view-section">
+        <iframe id="active-frame" src="" allow="pointer-lock; fullscreen;"></iframe>
+    </div>
+
+    <!-- MODULAR SYSTEM PANEL OVERLAY -->
+    <div class="settings-panel" id="settings-menu">
+        <div class="setting-item">
+            <label>Tab Layout Mask</label>
+            <select onchange="applyTabMask(this.value)">
+                <option value="classroom">Google Classroom</option>
+                <option value="drive">Google Drive</option>
+            </select>
+        </div>
+        <div class="setting-item">
+            <label>Custom Title String</label>
+            <input type="text" id="title-string" value="Classes" oninput="changeTabTitle(this.value)">
+        </div>
+        <div class="setting-item">
+            <label>Panic Direct Route Key</label>
+            <input type="text" id="panic-key" value="Escape" oninput="updatePanicTrigger(this.value)">
+        </div>
+        <div class="setting-item">
+            <label>Panic Target Link</label>
+            <input type="text" id="panic-url" value="https://classroom.google.com" oninput="updatePanicRoute(this.value)">
+        </div>
+        <button class="control-btn" style="width:100%; background:#4CAF50;" onclick="toggleSettingsMenu()">Save Configurations</button>
+    </div>
+
     <script>
-        // Core System Local Configuration State Object
-        let sysConfig = {
-            panicKey: 'Escape',
-            panicDestination: 'https://classroom.google.com'
-        };
+        let config = { key: 'Escape', target: 'https://classroom.google.com' };
 
-        // Initialize and trap user browser tracking loops
-        window.onload = function() {
-            deployHistoryShield();
-        };
+        function showGridView() {
+            document.getElementById('frame-view').classList.remove('active');
+            document.getElementById('grid-view').classList.add('active');
+            document.getElementById('active-frame').src = ""; // Reset frame to save browser memory
+        }
 
-        function deployHistoryShield() {
-            for (let i = 0; i < 10; i++) {
-                window.history.pushState({ sessionIndex: i }, "", window.location.pathname + "?resource=v" + i);
+        function launchGame(url) {
+            document.getElementById('grid-view').classList.remove('active');
+            document.getElementById('frame-view').classList.add('active');
+            document.getElementById('active-frame').src = url;
+        }
+
+        function toggleSettingsMenu() {
+            let menu = document.getElementById('settings-menu');
+            menu.style.display = (menu.style.display === 'block') ? 'none' : 'block';
+        }
+
+        function changeTabTitle(val) { document.getElementById('tab-title').innerText = val; }
+        function updatePanicTrigger(val) { config.key = val; }
+        function updatePanicRoute(val) { config.target = val; }
+
+        function applyTabMask(preset) {
+            let icon = document.getElementById('tab-icon');
+            let inp = document.getElementById('title-string');
+            if (preset === 'classroom') {
+                inp.value = "Classes";
+                icon.href = "https://gstatic.com";
+            } else if (preset === 'drive') {
+                inp.value = "My Drive - Google Drive";
+                icon.href = "https://gstatic.com";
             }
+            changeTabTitle(inp.value);
         }
 
-        function loadFrame(url, button) {
-            document.getElementById('game-frame').src = url;
-            let buttons = document.querySelectorAll('.nav-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-            if(button) button.classList.add('active');
-            deployHistoryShield();
-        }
-
-        function toggleSettingsForm() {
-            let panel = document.getElementById('settings-panel');
-            panel.style.display = (panel.style.display === 'block') ? 'none' : 'block';
-        }
-
-        function updateTabTitle(val) {
-            document.getElementById('tab-title').innerText = val;
-            document.getElementById('nav-brand-text').innerText = val;
-        }
-
-        function updatePanicKey(val) { sysConfig.panicKey = val; }
-        function updatePanicUrl(val) { sysConfig.panicDestination = val; }
-
-        function applyMaskPreset(type) {
-            let titleInp = document.getElementById('custom-title-input');
-            let iconEl = document.getElementById('tab-icon');
-            
-            if (type === 'classroom') {
-                titleInp.value = "Classes";
-                iconEl.href = "https://gstatic.com";
-            } else if (type === 'drive') {
-                titleInp.value = "My Drive - Google Drive";
-                iconEl.href = "https://gstatic.com";
-            } else if (type === 'docs') {
-                titleInp.value = "Google Docs";
-                iconEl.href = "https://gstatic.com";
-            }
-            updateTabTitle(titleInp.value);
-        }
-
-        // Global Keyboard Event Listening Engine for Intercepting Panics
+        // Catch Panic Event Trigger Actions
         window.addEventListener('keydown', function(e) {
-            if (e.key === sysConfig.panicKey) {
-                // Instantly break context and clean jump domain location
-                window.location.replace(sysConfig.panicDestination);
+            if (e.key === config.key) {
+                window.location.replace(config.target);
             }
         });
     </script>
-
 </body>
 </html>
